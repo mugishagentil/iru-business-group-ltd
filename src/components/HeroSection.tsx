@@ -1,17 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 import ContactModal from './ContactModal';
 
-export default function App() {
-  return (
-    <div className="bg-[#1b1c20] min-h-screen">
-      <HeroSection />
-    </div>
-  );
-}
-
 // AnimatedText component
-const AnimatedText = ({ text }) => {
+const AnimatedText = ({ text }: { text: string }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
@@ -228,12 +220,13 @@ const HeroSection = () => {
                   <span className="ml-2">&gt;</span>
                 </button>
 
-                <a href="/" className="flex items-center">
-                  <button className="flex items-center justify-center bg-white text-gray-800 font-bold py-3 px-6 rounded-md shadow-lg border border-gray-300 hover:bg-gray-100 transition-colors duration-200">
-                    <Play className="mr-2 h-4 w-4 fill-current text-yellow-600" />
-                    Learn More
-                  </button>
-                </a>
+                <button 
+                  onClick={() => setIsContactModalOpen(true)}
+                  className="flex items-center justify-center bg-white text-gray-800 font-bold py-3 px-6 rounded-md shadow-lg border border-gray-300 hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <Play className="mr-2 h-4 w-4 fill-current text-yellow-600" />
+                  Get In Touch
+                </button>
               </div>
             </div>
 
@@ -255,6 +248,8 @@ const HeroSection = () => {
          isOpen={isContactModalOpen} 
          onClose={() => setIsContactModalOpen(false)} 
        />
-     </section>
-   );
- };
+      </section>
+    );
+  };
+
+export default HeroSection;

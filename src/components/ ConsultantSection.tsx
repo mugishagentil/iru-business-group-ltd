@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react';
-import { ArrowRight, ChevronRight, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
+import ContactModal from './ContactModal';
 
-// Main App component to render the ConsultantSection
-export default function App() {
-  return (
-    // The main container with the dark background color.
-    <div className="bg-[#1b1c20] min-h-screen p-8 flex items-center justify-center">
-      <ConsultantSection />
-    </div>
-  );
-}
 
 // Donut Chart Component
 const DonutChart = () => {
   const [percentages, setPercentages] = useState({ new: 0, comment: 0, like: 0 });
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Animate the percentages on mount to better match the visual proportions in the image
     const timer = setTimeout(() => {
       setPercentages({ new: 15, comment: 30, like: 55 });
@@ -84,10 +76,10 @@ const DonutChart = () => {
 };
 
 // Progress Bar Component
-const ProgressBar = ({ label, percentage }) => {
+const ProgressBar = ({ label, percentage }: { label: string; percentage: number }) => {
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Animate the progress bar on mount
     const timer = setTimeout(() => {
       setProgress(percentage);
@@ -114,7 +106,14 @@ const ProgressBar = ({ label, percentage }) => {
 
 // The main ConsultantSection component
 const ConsultantSection = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
+    <>
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)} 
+      />
     <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 bg-[#2a2c34] rounded-lg shadow-2xl">
       <div className="grid lg:grid-cols-2 gap-12">
         
@@ -213,8 +212,11 @@ const ConsultantSection = () => {
             </li>
           </ul>
           
-          {/* Learn More button */}
-          <button className="flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors duration-200 text-gray-900 font-bold py-3 px-6 rounded-md shadow-lg w-fit mt-6">
+          {/* Get In Touch button */}
+          <button 
+            onClick={() => setIsContactModalOpen(true)}
+            className="flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors duration-200 text-gray-900 font-bold py-3 px-6 rounded-md shadow-lg w-fit mt-6"
+          >
             Get In Touch
             <ArrowRight className="ml-2 h-5 w-5" />
           </button>
@@ -235,5 +237,8 @@ const ConsultantSection = () => {
           </svg>
       </div>
     </section>
+    </>
   );
 };
+
+export default ConsultantSection;
