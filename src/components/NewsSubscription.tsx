@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import { Mail } from "lucide-react";
 
-export default function App() {
-  const componentStyles = `
-    .gradient-text {
-      background: linear-gradient(90deg, #F59E0B, #CA8A04);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  `;
-  return (
-    <div className="min-h-fit flex items-center justify-center font-sans py-8 px-4" style={{ background: '#f5faff' }}>
-      <style>{componentStyles}</style>
-      <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-      <NewsSubscription />
-    </div>
-  );
+// Type declaration for emailjs
+declare global {
+  interface Window {
+    emailjs: any;
+  }
 }
 
 const NewsSubscription = () => {
@@ -23,7 +13,15 @@ const NewsSubscription = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const componentStyles = `
+    .gradient-text {
+      background: linear-gradient(90deg, #F59E0B, #CA8A04);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  `;
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -56,7 +54,10 @@ const NewsSubscription = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden px-6 py-10 lg:py-12 text-gray-800 border-t-8 border-yellow-500">
+    <div className="min-h-fit flex items-center justify-center font-sans py-8 px-4" style={{ background: '#f5faff' }}>
+      <style>{componentStyles}</style>
+      <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden px-6 py-10 lg:py-12 text-gray-800 border-t-8 border-yellow-500">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-6">    
 
         {/* Left Side */}
@@ -100,6 +101,9 @@ const NewsSubscription = () => {
           {error && <p className="mt-3 text-red-500 text-sm text-center sm:text-left">{error}</p>}
         </div>
       </div>
+      </div>
     </div>
   );
 };
+
+export default NewsSubscription;
