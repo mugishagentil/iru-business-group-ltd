@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
-import { ArrowRight, CheckCircle } from 'lucide-react';
-import ContactModal from './ContactModal';
+import { Check, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
+// Main App component to render the AboutSection
+
+// The AboutSection component, designed to match the user's image.
 const AboutSection = () => {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-
   return (
-    <>
-      <ContactModal 
-        isOpen={isContactModalOpen} 
-        onClose={() => setIsContactModalOpen(false)} 
-      />
     <section id="about" className="relative bg-[#2a2c34] text-white">
     <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -30,23 +25,23 @@ const AboutSection = () => {
           {/* List of benefits with checkmarks */}
           <ul className="space-y-4">
             <li className="flex items-start text-lg">
-              <CheckCircle className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+              <Check className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
               <span>Proven track record in multi-sector excellence – from healthcare to technology.</span>
             </li>
             <li className="flex items-start text-lg">
-              <CheckCircle className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+              <Check className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
               <span>Innovative solutions like Irucore and AI-powered services.</span>
             </li>
             <li className="flex items-start text-lg">
-              <CheckCircle className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+              <Check className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
               <span>Strong governance and compliance with Rwandan corporate laws.</span>
             </li>
             <li className="flex items-start text-lg">
-              <CheckCircle className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+              <Check className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
               <span>Skilled leadership team with expertise in diverse industries.</span>
             </li>
             <li className="flex items-start text-lg">
-              <CheckCircle className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+              <Check className="h-6 w-6 text-yellow-400 mr-3 mt-1 flex-shrink-0" />
               <span>Customer-focused approach ensuring satisfaction at every stage.</span>
             </li>
           </ul>
@@ -80,11 +75,8 @@ const AboutSection = () => {
             <p className="text-gray-300 leading-relaxed">
              From healthcare and technology to logistics, creative arts, manufacturing, and beyond, we provide innovative, sustainable, and high-quality services that create lasting value for our clients and communities.
             </p>
-            <button 
-              onClick={() => setIsContactModalOpen(true)}
-              className="flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors duration-200 text-gray-900 font-bold py-3 px-6 rounded-md shadow-lg w-fit"
-            >
-              Get In Touch
+            <button className="flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 transition-colors duration-200 text-gray-900 font-bold py-3 px-6 rounded-md shadow-lg w-fit">
+              Learn More
               <ArrowRight className="ml-2 h-5 w-5" />
             </button>
           </div>
@@ -105,9 +97,7 @@ const AboutSection = () => {
       </svg>
     </div>
   </section>
-    </>
   );
 };
-
-export default AboutSection;
+export default AboutSection
 

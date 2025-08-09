@@ -16,47 +16,20 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     message: ''
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      // Initialize EmailJS (add your service details)
-      const serviceId = 'YOUR_SERVICE_ID';
-      const templateId = 'YOUR_TEMPLATE_ID';
-      const publicKey = 'YOUR_PUBLIC_KEY';
-
-      await window.emailjs.send(serviceId, templateId, {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-        to_email: 'info@irubusinessgroup.com'
-      }, publicKey);
-
-      setSubmitStatus('success');
-      setTimeout(() => {
-        onClose();
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
-        });
-        setSubmitStatus('idle');
-      }, 2000);
-    } catch (error) {
-      console.error('Email send error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Handle form submission here
+    console.log('Form submitted:', formData);
+    // You can add your form submission logic here
+    onClose();
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -75,9 +48,6 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
         className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
         onClick={onClose}
       />
-      
-      {/* EmailJS Script */}
-      <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
       
       {/* Modal */}
       <div className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -230,25 +200,12 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 />
               </div>
               
-              {submitStatus === 'success' && (
-                <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg mb-4">
-                  Message sent successfully! We'll get back to you soon.
-                </div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg mb-4">
-                  Failed to send message. Please try again.
-                </div>
-              )}
-
               <Button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-yellow-600 hover:bg-yellow-700 disabled:opacity-50 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+                className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
               >
                 <Send className="h-5 w-5" />
-                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                <span>Send Message</span>
               </Button>
             </form>
           </div>
