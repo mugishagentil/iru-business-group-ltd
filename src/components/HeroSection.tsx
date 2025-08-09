@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
+import ContactModal from './ContactModal';
 
 export default function App() {
   return (
@@ -69,6 +70,18 @@ const AnimatedText = ({ text }) => {
 
 const HeroSection = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+    setIsMenuOpen(false); // Close mobile menu after clicking
+  };
 
   return (
     <section id="home" className="relative min-h-screen">
@@ -102,10 +115,30 @@ const HeroSection = () => {
 
             {/* Desktop Nav Links */}
             <div className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">HOME</a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">ABOUT</a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">PROJECTS</a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">CONTACT US</a>
+              <button 
+                onClick={() => scrollToSection('home')}
+                className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+              >
+                HOME
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')}
+                className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+              >
+                ABOUT
+              </button>
+              <button 
+                onClick={() => scrollToSection('services')}
+                className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+              >
+                PROJECTS
+              </button>
+              <button 
+                onClick={() => setIsContactModalOpen(true)}
+                className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+              >
+                CONTACT US
+              </button>
             </div>
 
             {/* CTA on desktop */}
@@ -121,10 +154,30 @@ const HeroSection = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden bg-[#1b1c20] px-4 pb-4 pt-2 space-y-2 shadow-lg">
-            <a href="#" className="block text-gray-300 hover:text-white transition">HOME</a>
-            <a href="#" className="block text-gray-300 hover:text-white transition">ABOUT</a>
-            <a href="#" className="block text-gray-300 hover:text-white transition">PROJECTS</a>
-            <a href="#" className="block text-gray-300 hover:text-white transition">CONTACT US</a>
+            <button 
+              onClick={() => scrollToSection('home')}
+              className="block text-gray-300 hover:text-white transition w-full text-left"
+            >
+              HOME
+            </button>
+            <button 
+              onClick={() => scrollToSection('about')}
+              className="block text-gray-300 hover:text-white transition w-full text-left"
+            >
+              ABOUT
+            </button>
+            <button 
+              onClick={() => scrollToSection('services')}
+              className="block text-gray-300 hover:text-white transition w-full text-left"
+            >
+              PROJECTS
+            </button>
+            <button 
+              onClick={() => setIsContactModalOpen(true)}
+              className="block text-gray-300 hover:text-white transition w-full text-left"
+            >
+              CONTACT US
+            </button>
             <div className="pt-2 border-t border-gray-700">
               <p className="text-sm text-white">Call us now</p>
               <p className="text-sm font-bold text-yellow-400">+250 788 894 032</p>
@@ -193,9 +246,15 @@ const HeroSection = () => {
                className="w-full h-auto"
              />
            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+           </div>
+         </div>
+       </div>
+       
+       {/* Contact Modal */}
+       <ContactModal 
+         isOpen={isContactModalOpen} 
+         onClose={() => setIsContactModalOpen(false)} 
+       />
+     </section>
+   );
+ };

@@ -6,7 +6,7 @@ import { useState } from 'react';
 // The AboutSection component, designed to match the user's image.
 const AboutSection = () => {
   return (
-    <section className="relative bg-[#2a2c34] text-white">
+    <section id="about" className="relative bg-[#2a2c34] text-white">
     <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         
